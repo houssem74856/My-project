@@ -6,8 +6,11 @@ const popupMsgBtn = document.querySelector(".close2-normal")
 let deleteBtns = document.querySelectorAll(".close")
 let editBtns = document.querySelectorAll(".modify")
 const div = document.querySelectorAll(".div")
+let i = 0
 
 deleteBtns.forEach(function deleting(deleteBtn) {deleteBtn.addEventListener('click',function(event) {
+    let a = i + 1
+    i+=1 
     const li = deleteBtn.parentElement.parentElement
     ul.removeChild(li)
     let popupMsgClass = popupMsg.classList
@@ -22,11 +25,13 @@ deleteBtns.forEach(function deleting(deleteBtn) {deleteBtn.addEventListener('cli
         popupMsgBtn.appendChild(img)
     }
     setTimeout(function() {
-        popupMsg.classList.replace('red','normal')
-        popupMsgBtn.classList.replace('close2-edited','close2-normal')
-        if (popupMsg.className === 'normal') {
-        popupMsgText.innerText = ''
-        popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+        if(a === i) {
+            popupMsg.classList.replace('red','normal')
+            popupMsgBtn.classList.replace('close2-edited','close2-normal')
+            if (popupMsg.className === 'normal') {
+                popupMsgText.innerText = ''
+                popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+            }
         }
     },3000)
 })})
