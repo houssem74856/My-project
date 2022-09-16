@@ -75,7 +75,6 @@ ul.addEventListener('click',function(event) {
 })
 
 popupMsgBtn.addEventListener('click',function() {
-    bolean = false
     let popupMsgClass = popupMsg.classList
     popupMsgBtn.classList.replace('close2-edited','close2-normal')
     popupMsg.classList.replace(`${popupMsgClass}`,'normal')
@@ -96,7 +95,6 @@ searchBar.addEventListener('submit',function(event) {
     const button2 = document.createElement('button')
     const img1 = document.createElement('img')
     const img2 = document.createElement('img')
-    const input = document.querySelector('input')
 
     h2.textContent = liTitle
     div.classList.add('div')
@@ -119,8 +117,6 @@ searchBar.addEventListener('submit',function(event) {
 
 ul.addEventListener('click',function(event) {  
     if(event.target.className === 'modify') {
-        let a = i
-        i+=1 
     const saveBtn = document.querySelector('.submit2')  
     if(saveBtn === null){
         const li = event.target.parentElement.parentElement
@@ -144,6 +140,9 @@ ul.addEventListener('click',function(event) {
 
         titleBar.addEventListener('submit',function(event) {
             event.preventDefault()
+
+            let a = i
+            i+=1
         
             const input = titleBar.querySelector('.updated-title')
             const li = input.parentElement.parentElement
@@ -168,7 +167,7 @@ ul.addEventListener('click',function(event) {
             setTimeout(function() {
                 if(a === i - 1) {
                     if (bolean === true) {
-                    popupMsg.classList.replace('red','normal')
+                    popupMsg.classList.replace('green','normal')
                     popupMsgBtn.classList.replace('close2-edited','close2-normal')
                     if (popupMsg.className === 'normal') {
                         popupMsgText.innerText = ''
@@ -184,8 +183,6 @@ ul.addEventListener('click',function(event) {
     }
 }
 else if(event.target.parentElement.className === 'modify') {
-    let a = i
-    i+=1 
     const saveBtn = document.querySelector('.submit2')  
     if(saveBtn === null){
         const li = event.target.parentElement.parentElement.parentElement
@@ -209,6 +206,9 @@ else if(event.target.parentElement.className === 'modify') {
 
         titleBar.addEventListener('submit',function(event) {
             event.preventDefault()
+
+            let a = i
+            i+=1
         
             const input = titleBar.querySelector('.updated-title')
             const li = input.parentElement.parentElement
@@ -233,7 +233,7 @@ else if(event.target.parentElement.className === 'modify') {
             setTimeout(function() {
                 if(a === i - 1) {
                     if (bolean === true) {
-                    popupMsg.classList.replace('red','normal')
+                    popupMsg.classList.replace('green','normal')
                     popupMsgBtn.classList.replace('close2-edited','close2-normal')
                     if (popupMsg.className === 'normal') {
                         popupMsgText.innerText = ''
