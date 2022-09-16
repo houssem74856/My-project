@@ -3,17 +3,17 @@ const lis = document.querySelectorAll(".item")
 const popupMsg = document.querySelector(".normal")
 const popupMsgText = document.querySelector("h1")
 const popupMsgBtn = document.querySelector(".close2-normal")
-let deleteBtns = document.querySelectorAll(".close")
-let editBtns = document.querySelectorAll(".modify")
 const div = document.querySelectorAll(".div")
+let bolean = true
 let i = 0
 
-deleteBtns.forEach(function deleting(deleteBtn) {deleteBtn.addEventListener('click',function(event) {
-    let a = i + 1
-    i+=1 
-    const li = deleteBtn.parentElement.parentElement
-    ul.removeChild(li)
-    let popupMsgClass = popupMsg.classList
+ul.addEventListener('click',function(event) { 
+    if(event.target.className === 'close') {
+        let a = i
+        i+=1
+        const li = event.target.parentElement.parentElement
+        ul.removeChild(li)
+        let popupMsgClass = popupMsg.classList
     popupMsg.classList.replace(`${popupMsgClass}`,'red')
     popupMsgBtn.classList.replace('close2-normal','close2-edited')
     popupMsgText.innerText = 'Item successfully deleted!'
@@ -25,7 +25,7 @@ deleteBtns.forEach(function deleting(deleteBtn) {deleteBtn.addEventListener('cli
         popupMsgBtn.appendChild(img)
     }
     setTimeout(function() {
-        if(a === i) {
+        if(a === i - 1) {
             popupMsg.classList.replace('red','normal')
             popupMsgBtn.classList.replace('close2-edited','close2-normal')
             if (popupMsg.className === 'normal') {
@@ -34,9 +34,43 @@ deleteBtns.forEach(function deleting(deleteBtn) {deleteBtn.addEventListener('cli
             }
         }
     },3000)
-})})
+    }
+    else if (event.target.parentElement.className === 'close') {
+        let b = i
+        i+=1
+        const li = event.target.parentElement.parentElement.parentElement
+        ul.removeChild(li)
+        let popupMsgClass = popupMsg.classList
+    popupMsg.classList.replace(`${popupMsgClass}`,'red')
+    popupMsgBtn.classList.replace('close2-normal','close2-edited')
+    popupMsgText.innerText = 'Item successfully deleted!'
+    if(popupMsgBtn.firstChild === null) {
+        const img = document.createElement('img')
+        img.classList.add('img2')
+        img.src = 'close2.png'
+        img.width = '20'
+        popupMsgBtn.appendChild(img)
+    }
+    setTimeout(function() {
+        if(b === i - 1) {
+            if (bolean === true) {
+            popupMsg.classList.replace('red','normal')
+            popupMsgBtn.classList.replace('close2-edited','close2-normal')
+            if (popupMsg.className === 'normal') {
+                popupMsgText.innerText = ''
+                popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+            }
+            }
+            else {
+                bolean = true
+            }
+        }
+    },3000)
+    }
+})
 
 popupMsgBtn.addEventListener('click',function() {
+    bolean = false
     let popupMsgClass = popupMsg.classList
     popupMsgBtn.classList.replace('close2-edited','close2-normal')
     popupMsg.classList.replace(`${popupMsgClass}`,'normal')
@@ -57,6 +91,7 @@ searchBar.addEventListener('submit',function(event) {
     const button2 = document.createElement('button')
     const img1 = document.createElement('img')
     const img2 = document.createElement('img')
+    const input = document.querySelector('input')
 
     h2.textContent = liTitle
     div.classList.add('div')
@@ -75,99 +110,15 @@ searchBar.addEventListener('submit',function(event) {
     div.appendChild(button2)
     button1.appendChild(img1)
     button2.appendChild(img2)
-
-    deleteBtns = document.querySelectorAll(".close")
-
-    deleteBtns.forEach(function(deleteBtn) {deleteBtn.addEventListener('click',function() {
-        const li2 = deleteBtn.parentElement.parentElement
-        ul.removeChild(li2)
-        let popupMsgClass = popupMsg.classList
-        popupMsg.classList.replace(`${popupMsgClass}`,'red')
-        popupMsg.classList.replace('normal','red')
-        popupMsgBtn.classList.replace('close2-normal','close2-edited')
-        popupMsgText.innerText = 'Item successfully deleted!'
-        if(popupMsgBtn.firstChild === null) {
-            const img = document.createElement('img')
-            img.classList.add('img2')
-            img.src = 'close2.png'
-            img.width = '20'
-            popupMsgBtn.appendChild(img)
-        }
-        setTimeout(function() {
-            popupMsg.classList.replace('red','normal')
-            popupMsgBtn.classList.replace('close2-edited','close2-normal')
-            if (popupMsg.className === 'normal') {
-                popupMsgText.innerText = ''
-                popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
-            }
-        },3000)
-    })})
-
-    editBtns = document.querySelectorAll(".modify")
-
-    editBtns.forEach(function(editBtn) {editBtn.addEventListener('click',function() {  
-        const saveBtn = document.querySelector('.submit2')  
-        if(saveBtn === null){
-            const li = editBtn.parentElement.parentElement
-            li.style.height = '120px'
-
-            const form = document.createElement('form')
-            const input = document.createElement('input')
-            const button = document.createElement('button')
-
-            form.setAttribute('id','title-bar')
-            input.classList.add('updated-title')
-            input.setAttribute('type','text')
-            input.setAttribute('placeholder','My updated description of this todolist item')
-            button.classList.add('submit2')
-            button.textContent = 'save'
-
-            li.appendChild(form)
-            form.appendChild(input)
-            form.appendChild(button)
-
-            let titleBar = document.forms['title-bar']
-
-            titleBar.addEventListener('submit',function(event) {
-            event.preventDefault()
-    
-                const input = titleBar.querySelector('.updated-title')
-                const li = input.parentElement.parentElement
-                const title = li.querySelector('h2')
-                const value = titleBar.querySelector('input[type="text"]').value
-    
-                title.textContent = value
-                li.removeChild(titleBar)
-                li.style.height = '60px'
-
-                let popupMsgClass = popupMsg.classList
-                popupMsg.classList.replace(`${popupMsgClass}`,'green')
-                popupMsgBtn.classList.replace('close2-normal','close2-edited')
-                popupMsgText.innerText = 'Item successfully updated!'
-                if(popupMsgBtn.firstChild === null) {
-                    const img = document.createElement('img')
-                    img.classList.add('img2')
-                    img.src = 'close2.png'
-                    img.width = '20'
-                    popupMsgBtn.appendChild(img)
-                }
-                setTimeout(function() {
-                    popupMsg.classList.replace('green','normal')
-                    popupMsgBtn.classList.replace('close2-edited','close2-normal')
-                    if (popupMsg.className === 'normal') {
-                        popupMsgText.innerText = ''
-                        popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
-                    }
-                },3000)
-            })
-        }
-    })})
 })
 
-editBtns.forEach(function(editBtn) {editBtn.addEventListener('click',function(event) {  
+ul.addEventListener('click',function(event) {  
+    if(event.target.className === 'modify') {
+        let a = i
+        i+=1 
     const saveBtn = document.querySelector('.submit2')  
     if(saveBtn === null){
-        const li = editBtn.parentElement.parentElement
+        const li = event.target.parentElement.parentElement
         li.style.height = '120px'
         const form = document.createElement('form')
         const input = document.createElement('input')
@@ -210,13 +161,76 @@ editBtns.forEach(function(editBtn) {editBtn.addEventListener('click',function(ev
                 popupMsgBtn.appendChild(img)
             }
             setTimeout(function() {
+                if(a === i - 1) {
                 popupMsg.classList.replace('green','normal')
                 popupMsgBtn.classList.replace('close2-edited','close2-normal')
                 if (popupMsg.className === 'normal') {
                     popupMsgText.innerText = ''
                     popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
                 }
+            }
             },3000)
         })
     }
-})})
+}
+else if(event.target.parentElement.className === 'modify') {
+    let a = i
+    i+=1 
+    const saveBtn = document.querySelector('.submit2')  
+    if(saveBtn === null){
+        const li = event.target.parentElement.parentElement.parentElement
+        li.style.height = '120px'
+        const form = document.createElement('form')
+        const input = document.createElement('input')
+        const button = document.createElement('button')
+
+        form.setAttribute('id','title-bar')
+        input.classList.add('updated-title')
+        input.setAttribute('type','text')
+        input.setAttribute('placeholder','My updated description of this todolist item')
+        button.classList.add('submit2')
+        button.textContent = 'save'
+
+        li.appendChild(form)
+        form.appendChild(input)
+        form.appendChild(button)
+
+        titleBar = document.forms['title-bar']
+
+        titleBar.addEventListener('submit',function(event) {
+            event.preventDefault()
+        
+            const input = titleBar.querySelector('.updated-title')
+            const li = input.parentElement.parentElement
+            const title = li.querySelector('h2')
+            const value = titleBar.querySelector('input[type="text"]').value
+        
+            title.textContent = value
+            li.removeChild(titleBar)
+            li.style.height = '60px'
+
+            let popupMsgClass = popupMsg.classList
+            popupMsg.classList.replace(`${popupMsgClass}`,'green')
+            popupMsgBtn.classList.replace('close2-normal','close2-edited')
+            popupMsgText.innerText = 'Item successfully updated!'
+            if(popupMsgBtn.firstChild === null) {
+                const img = document.createElement('img')
+                img.classList.add('img2')
+                img.src = 'close2.png'
+                img.width = '20'
+                popupMsgBtn.appendChild(img)
+            }
+            setTimeout(function() {
+                if(a === i - 1) {
+                popupMsg.classList.replace('green','normal')
+                popupMsgBtn.classList.replace('close2-edited','close2-normal')
+                if (popupMsg.className === 'normal') {
+                    popupMsgText.innerText = ''
+                    popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+                }
+            }
+            },3000)
+        })
+    }
+}
+})
