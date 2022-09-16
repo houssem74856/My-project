@@ -26,17 +26,22 @@ ul.addEventListener('click',function(event) {
     }
     setTimeout(function() {
         if(a === i - 1) {
+            if (bolean === true) {
             popupMsg.classList.replace('red','normal')
             popupMsgBtn.classList.replace('close2-edited','close2-normal')
             if (popupMsg.className === 'normal') {
                 popupMsgText.innerText = ''
                 popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
             }
+            }
+            else {
+                bolean = true
+            }
         }
     },3000)
     }
     else if (event.target.parentElement.className === 'close') {
-        let b = i
+        let a = i
         i+=1
         const li = event.target.parentElement.parentElement.parentElement
         ul.removeChild(li)
@@ -52,7 +57,7 @@ ul.addEventListener('click',function(event) {
         popupMsgBtn.appendChild(img)
     }
     setTimeout(function() {
-        if(b === i - 1) {
+        if(a === i - 1) {
             if (bolean === true) {
             popupMsg.classList.replace('red','normal')
             popupMsgBtn.classList.replace('close2-edited','close2-normal')
@@ -162,13 +167,18 @@ ul.addEventListener('click',function(event) {
             }
             setTimeout(function() {
                 if(a === i - 1) {
-                popupMsg.classList.replace('green','normal')
-                popupMsgBtn.classList.replace('close2-edited','close2-normal')
-                if (popupMsg.className === 'normal') {
-                    popupMsgText.innerText = ''
-                    popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+                    if (bolean === true) {
+                    popupMsg.classList.replace('red','normal')
+                    popupMsgBtn.classList.replace('close2-edited','close2-normal')
+                    if (popupMsg.className === 'normal') {
+                        popupMsgText.innerText = ''
+                        popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+                    }
+                    }
+                    else {
+                        bolean = true
+                    }
                 }
-            }
             },3000)
         })
     }
@@ -222,13 +232,18 @@ else if(event.target.parentElement.className === 'modify') {
             }
             setTimeout(function() {
                 if(a === i - 1) {
-                popupMsg.classList.replace('green','normal')
-                popupMsgBtn.classList.replace('close2-edited','close2-normal')
-                if (popupMsg.className === 'normal') {
-                    popupMsgText.innerText = ''
-                    popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+                    if (bolean === true) {
+                    popupMsg.classList.replace('red','normal')
+                    popupMsgBtn.classList.replace('close2-edited','close2-normal')
+                    if (popupMsg.className === 'normal') {
+                        popupMsgText.innerText = ''
+                        popupMsgBtn.removeChild(popupMsgBtn.firstElementChild)
+                    }
+                    }
+                    else {
+                        bolean = true
+                    }
                 }
-            }
             },3000)
         })
     }
